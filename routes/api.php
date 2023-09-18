@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/{item}',\App\Http\Controllers\Item\UpdateController::class);
         Route::delete('/{item}',\App\Http\Controllers\Item\DeleteController::class);
         Route::post('/complete/{item}',\App\Http\Controllers\Item\CompleteController::class);
+        Route::get('/tasks',\App\Http\Controllers\Item\TasksController::class);
 
     });
 });
