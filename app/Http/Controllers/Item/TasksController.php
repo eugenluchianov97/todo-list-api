@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Item;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
 {
     public function __invoke(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $items = User::find(1)->items()
+            $items = Auth::user()->items()
                 ->where('month',$request->month)
                 ->where('year',$request->year )->get();
             return response()->json([

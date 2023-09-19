@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Mail\ConfirmRegistrationMail;
+use App\Models\ConfirmPassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -25,9 +28,16 @@ class RegisterController extends Controller
 
             $user = User::create($userData);
 
+            $codeNumber =  mt_rand(100000, 999999);
+            $code = new ConfirmPassword(['user_id' => $user->id, 'code' => $codeNumber]);
+            $user->code()->save($code);
+
+            Mail::to($data['email'])->send(new ConfirmRegistrationMail($codeNumber));
+
             return response()->json([
                 'status' => true,
                 'token' => $user->createToken("API TOKEN")->plainTextToken,
+                'user' => $user
             ], 200);
         }
         catch (\Throwable $th) {

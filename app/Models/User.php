@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Item::class,'user_id');
     }
+
+    public function code(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ConfirmPassword::class);
+    }
 }
