@@ -9,4 +9,10 @@ class ConfirmPassword extends Model
 {
     use HasFactory;
     protected $guarded = false;
+
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }

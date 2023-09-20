@@ -28,7 +28,7 @@ class RegisterController extends Controller
 
             $user = User::create($userData);
 
-            $codeNumber =  mt_rand(100000, 999999);
+            $codeNumber =  mt_rand(1000000000, 9999999999);
             $code = new ConfirmPassword(['user_id' => $user->id, 'code' => $codeNumber]);
             $user->code()->save($code);
 

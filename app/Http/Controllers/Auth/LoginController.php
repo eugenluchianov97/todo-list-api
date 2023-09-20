@@ -12,11 +12,11 @@ class LoginController extends Controller
 {
     public function __invoke(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
+
         try {
             $data = $request->validated();
 
             $user = User::where('email', $data['email'])->first();
-
             if(!Auth::attempt(['email' => $data['email'], 'password' => $data['password']])){
                 return response()->json([
                     'status' => false,
