@@ -13,8 +13,9 @@ class TasksController extends Controller
     {
         try {
             $items = Auth::user()->items()
-                ->where('month',$request->month)
-                ->where('year',$request->year )->get();
+                ->whereYear('datetime', '=',$request->year)
+                ->whereMonth('datetime', '=', $request->month)
+                ->get();
             return response()->json([
                 'status' => true,
                 'items' => $items

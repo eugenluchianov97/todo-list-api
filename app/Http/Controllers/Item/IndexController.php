@@ -16,7 +16,13 @@ class IndexController extends Controller
     public function __invoke(Request $request): \Illuminate\Http\JsonResponse
     {
         try {
-            $items = Auth::user()->items()->where('date',$request->date )->where('month',$request->month )->where('year',$request->year )->get();
+            $items = Auth::user()->items()
+                ->whereYear('created_at', '=',$request->year)
+                ->whereMonth('datetime', '=', $request->month)
+                ->whereDay('datetime','=',$request->date)
+                ->get();
+
+
             return response()->json([
                 'status' => true,
                 'items' =>  IndexResource::collection($items)

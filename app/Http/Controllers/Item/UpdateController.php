@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Item;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Item\UpdateRequest;
 use App\Models\Item;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,12 +19,9 @@ class UpdateController extends Controller
             $item->update([
                 'subject' => $data['subject'],
                 'text' => $data['text'],
-                'year' => $data['year'],
-                'month' => $data['month'],
-                'date' => $data['date'],
+                'datetime' => Carbon::parse($data['date'] . 'T'.$data['time'])->format('Y-m-d H:i:s') ,
                 'done' => $data['done'],
-                'user_id' => Auth::id(),
-                'timestamp' => $data['timestamp']
+                'user_id' => Auth::id()
             ]);
             return response()->json([
                 'status' => true,

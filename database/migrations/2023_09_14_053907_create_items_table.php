@@ -15,11 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('subject');
             $table->text('text')->nullable();
-            $table->integer('date');
-            $table->integer('month');
-            $table->integer('year');
+            $table->timestamp('datetime');
             $table->boolean('done');
-            $table->datetime('timestamp');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

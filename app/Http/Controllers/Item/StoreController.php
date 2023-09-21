@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Item;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Item\StoreRequest;
 use App\Models\Item;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,12 +19,9 @@ class StoreController extends Controller
             Item::create([
                'subject' => $data['subject'],
                'text' => $data['text'],
-               'year' => $data['year'],
-               'month' => $data['month'],
-               'date' => $data['date'],
+               'datetime' => Carbon::createFromFormat('Y-m-d H:i',$data['date'] . ' '.$data['time'])->format('Y-m-d H:i:s') ,
                'done' => $data['done'],
-               'user_id' => Auth::id(),
-                'timestamp' => $data['timestamp']
+               'user_id' => Auth::id()
             ]);
             return response()->json([
                 'status' => true,

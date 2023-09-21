@@ -17,10 +17,8 @@ class StoreRequest extends FormRequest
             'subject' => 'required',
             'text' => 'sometimes',
             'date' => 'required',
-            'month' => 'required',
-            'year' => 'required',
+            'time' => 'required',
             'done' =>'required',
-            'timestamp' =>'required',
         ];
     }
 }

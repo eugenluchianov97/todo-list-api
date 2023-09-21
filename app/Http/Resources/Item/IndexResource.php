@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Item;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,9 +15,8 @@ class IndexResource extends JsonResource
             'id' => $this->id,
             'subject' =>$this->subject,
             'text' =>$this->text,
-            'date' =>$this->date,
-            'month' =>$this->month,
-            'year' =>$this->year,
+            'date' =>Carbon::createFromFormat('Y-m-d H:i:s', $this->datetime)->format('Y-m-d'),
+            'time' =>Carbon::createFromFormat('Y-m-d H:i:s', $this->datetime)->format('H:i'),
             'done' => $this->done,
 
         ];

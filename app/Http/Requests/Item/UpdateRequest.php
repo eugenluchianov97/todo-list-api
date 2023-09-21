@@ -17,10 +17,8 @@ class UpdateRequest extends FormRequest
             'subject' => 'required',
             'text' => 'nullable',
             'date' => 'required',
-            'month' => 'required',
-            'year' => 'required',
+            'time' => 'required',
             'done' =>'required',
-            'timestamp' =>'required',
         ];
     }
 }
