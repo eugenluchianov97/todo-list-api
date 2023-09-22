@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Item;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Item\TaskResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class TasksController extends Controller
                 ->get();
             return response()->json([
                 'status' => true,
-                'items' => $items
+                'items' => TaskResource::collection($items)
             ], 200);
         }
         catch (\Throwable $th) {
