@@ -9,17 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmRegistrationMail extends Mailable
+class TaskMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $code;
-    public function __construct($code) {
-        $this->code = $code;
+    public $data;
+    public function __construct($data)
+    {
+        $this->data = $data;
     }
 
-    public function build(): ConfirmRegistrationMail
+    public function build(): TaskMail
     {
-        return $this->view('emails.confirm-registration')->with(['code' => $this->code]);
+
+        return $this->view('emails.tasks')->with(['data' => $this->data]);
     }
 }

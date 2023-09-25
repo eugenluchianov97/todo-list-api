@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Item;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Item\StoreRequest;
+use App\Jobs\SendEmail;
 use App\Models\Item;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,13 +17,16 @@ class StoreController extends Controller
         try {
             $data = $request->validated();
 
-            Item::create([
+            $item = Item::create([
                'subject' => $data['subject'],
                'text' => $data['text'],
                'datetime' => Carbon::createFromFormat('Y-m-d H:i',$data['date'] . ' '.$data['time'])->format('Y-m-d H:i:s') ,
                'done' => $data['done'],
                'user_id' => Auth::id()
             ]);
+
+            SendEmail::dispatch($item);
+
             return response()->json([
                 'status' => true,
             ], 200);
