@@ -17,7 +17,7 @@ Route::group(['prefix' =>'auth'], function(){
      Route::post('/login',\App\Http\Controllers\Auth\LoginController::class);
 
 
-     Route::group(['middleware' => ['auth:sanctum','verify_email']], function(){
+     Route::group(['middleware' => ['auth:sanctum']], function(){
         Route::post('/logout',\App\Http\Controllers\Auth\LogoutController::class);
      });
 });
